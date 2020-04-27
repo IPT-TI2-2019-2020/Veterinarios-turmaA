@@ -69,11 +69,12 @@ namespace Vets.Controllers {
             return NotFound();
          }
 
-         var donos = await _db.Donos.FindAsync(id);
-         if (donos == null) {
+         var dono = await _db.Donos.FindAsync(id);
+
+         if (dono == null) {
             return NotFound();
          }
-         return View(donos);
+         return View(dono);
       }
 
       // POST: Donos/Edit/5

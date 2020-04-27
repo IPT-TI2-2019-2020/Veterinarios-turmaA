@@ -13,12 +13,21 @@ namespace Vets.Models {
          ListaConsultas = new HashSet<Consultas>();
       }
 
-
+      /// <summary>
+      /// 
+      /// </summary>
       [Key]
       public int ID { get; set; }
 
+      /// <summary>
+      /// 
+      /// </summary>
+      [Required]
       public string Nome { get; set; }
 
+      /// <summary>
+      /// 
+      /// </summary>
       public string Especie { get; set; }
 
       public string Raca { get; set; }
