@@ -39,6 +39,15 @@ namespace Vets.Models {
       [RegularExpression("[1356][0-9]{8}", ErrorMessage = "Deve escrever exatamente 9 algarismos, começando por 1, 3, 5 ou 6.")] // <=> filtro
       public string NIF { get; set; }
 
+      /// <summary>
+      /// Sexo do(a) Dono(a)
+      /// </summary>
+      [Required(ErrorMessage = "O {0} é de preenchimento obrigatório.")]
+      [StringLength (1)]
+      [RegularExpression("[mfMF]")]
+      public string Sexo { get; set; }
+
+
       //**************************************************
       // SELECT *
       // FROM Animais a, Donos d
