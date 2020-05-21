@@ -13,11 +13,14 @@ using Vets.Data;
 
 namespace Vets {
    public class Startup {
+
       public Startup(IConfiguration configuration) {
          Configuration = configuration;
       }
 
+
       public IConfiguration Configuration { get; }
+
 
       // This method gets called by the runtime. Use this method to add services to the container.
       public void ConfigureServices(IServiceCollection services) {
@@ -26,8 +29,9 @@ namespace Vets {
          //****************************************************************************
          // especificação do 'tipo' e 'localização' da BD
          services.AddDbContext<VetsDB>(options =>
-            options.UseSqlServer(
-                Configuration.GetConnectionString("ConnectionDB")));
+            options.UseSqlServer(Configuration.GetConnectionString("ConnectionDB"))
+                   .UseLazyLoadingProxies()  // ativa o uso do 'Lazy Loading'
+         );
          //****************************************************************************
       }
 

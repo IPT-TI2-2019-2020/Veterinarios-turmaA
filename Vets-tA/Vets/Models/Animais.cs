@@ -48,11 +48,11 @@ namespace Vets.Models {
       //***************************************
       [ForeignKey("Dono")] // anotação: vai associar o atributo 'DonoFK' ao atributo 'Dono' com a característica de FK
       public int DonoFK { get; set; } // donoFK int
-      public Donos Dono { get; set; } // Reference Donos(ID)
+      public virtual Donos Dono { get; set; } // Reference Donos(ID)
 
 
       //*************************************************
-      public ICollection<Consultas> ListaConsultas { get; set; }
+      public virtual ICollection<Consultas> ListaConsultas { get; set; }
 
    }
 }

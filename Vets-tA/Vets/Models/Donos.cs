@@ -56,7 +56,7 @@ namespace Vets.Models {
       /// <summary>
       /// Lista dos Animais associados a um Dono
       /// </summary>
-      public ICollection<Animais> ListaAnimais { get; set; }
+      public virtual ICollection<Animais> ListaAnimais { get; set; }
 
 
    }

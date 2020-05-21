@@ -27,18 +27,28 @@ namespace Vets.Controllers {
 
 
       // GET: Veterinarios/Details/5
+      /// <summary>
+      /// Mostra os dados de um veterinário, acedendo aos dados relativos a ele,
+      /// associados às consultas, aos seus animais e respetivos donos
+      /// </summary>
+      /// <param name="id">identificador do veterinário a apresentar os detalhes</param>
+      /// <returns></returns>
       public async Task<IActionResult> Details(int? id) {
          if (id == null) {
-            return NotFound();
+            return RedirectToAction("Index");
          }
 
-         var veterinarios = await _context.Veterinarios.FirstOrDefaultAsync(m => m.ID == id);
+         // acesso aos dados será feito em modo 'lazy loading'
+         // adicionar o termo 'virtual' aos atributos que exprimem os relacionamentos
+         // adicionar a package: Install-Package Microsoft.EntityFrameworkCore.Proxies
+         // 'ligar' o Lazy Loading
+         var veterinario = await _context.Veterinarios.FirstOrDefaultAsync(m => m.ID == id);
 
-         if (veterinarios == null) {
-            return NotFound();
+         if (veterinario == null) {
+            return RedirectToAction("Index");
          }
 
-         return View(veterinarios);
+         return View(veterinario);
       }
 
 
