@@ -52,7 +52,38 @@ namespace Vets.Controllers {
       }
 
 
+      /// <summary>
+      /// Mostra os dados de um veterinário, acedendo aos dados relativos a ele,
+      /// associados às consultas, aos seus animais e respetivos donos
+      /// </summary>
+      /// <param name="id">identificador do veterinário a apresentar os detalhes</param>
+      /// <returns></returns>
+      public async Task<IActionResult> Details2(int? id) {
+         if (id == null) {
+            return RedirectToAction("Index");
+         }
 
+         // acesso aos dados será feito em modo 'Eager Loading'
+         // acesso aos dados em modo 'antecipado'
+         // na prática, far-se-á esta consulta
+         // SELECT *
+         // FROM Consultas c, Animais a, Donos d, Veterinarios v
+         // WHERE c.VeterinarioFK=v.ID AND
+         //       c.AnimalFK=a.ID AND
+         //       a.DonoFK=d.ID AND
+         //       v.ID=id
+         var veterinario = await _context.Veterinarios
+                                         .Include(v=>v.ListaConsultas)
+                                         .ThenInclude(a=>a.Animal)
+                                         .ThenInclude(d=>d.Dono)         
+                                         .FirstOrDefaultAsync(m => m.ID == id);
+
+         if (veterinario == null) {
+            return RedirectToAction("Index");
+         }
+
+         return View(veterinario);
+      }
 
 
       // GET: Veterinarios/Create
