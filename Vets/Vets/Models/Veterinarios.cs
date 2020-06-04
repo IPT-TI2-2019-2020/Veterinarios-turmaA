@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Vets.Models {
+
    public class Veterinarios {
       public Veterinarios() {
          ListaConsultas = new HashSet<Consultas>();

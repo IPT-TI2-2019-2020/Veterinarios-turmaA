@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,8 @@ using Vets.Data;
 using Vets.Models;
 
 namespace Vets.Controllers {
+
+   [Authorize] // fecha o acesso a qualquer recurso da classe a Utilizadores não Autenticadados
    public class VeterinariosController : Controller {
 
       private readonly VetsDB _context;
@@ -28,6 +31,7 @@ namespace Vets.Controllers {
 
 
       // GET: Veterinarios
+      [AllowAnonymous]  // anula o efeito do [Authorize]
       public async Task<IActionResult> Index() {
          return View(await _context.Veterinarios.ToListAsync());
       }
@@ -100,6 +104,7 @@ namespace Vets.Controllers {
       /// Apresenta o formulário de Criação de um novo Veterinário
       /// </summary>
       /// <returns></returns>
+      [Authorize]
       public IActionResult Create() {
          return View();
       }
@@ -109,6 +114,7 @@ namespace Vets.Controllers {
       // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
       [HttpPost]
       [ValidateAntiForgeryToken]
+      [Authorize]
       public async Task<IActionResult> Create([Bind("Nome,NumCedulaProf,Fotografia")] Veterinarios veterinario, IFormFile fotoVet) {
 
          //****************************************
@@ -182,6 +188,7 @@ namespace Vets.Controllers {
       }
 
       // GET: Veterinarios/Edit/5
+      [Authorize]
       public async Task<IActionResult> Edit(int? id) {
          if (id == null) {
             return NotFound();
@@ -199,6 +206,7 @@ namespace Vets.Controllers {
       // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
       [HttpPost]
       [ValidateAntiForgeryToken]
+      [Authorize]
       public async Task<IActionResult> Edit(int id, [Bind("ID,Nome,NumCedulaProf,Fotografia")] Veterinarios veterinarios) {
          if (id != veterinarios.ID) {
             return NotFound();
